@@ -171,7 +171,8 @@ class Manager(object):
                     if "task_timeout" in pobj:
                         if diff > pobj["task_timeout"]:
                             print("task " + pobj["task"] + " convert timeout")
-                            self.r.setnx("ConvertResult:" + pobj["task"], -10)
+                            #self.r.setnx("ConvertResult:" + pobj["task"], -10)
+                            self.r.rpush("ConvertResult:" + pobj["task"], str(-10))
                             self.r.expire("ConvertResult:" + pobj["task"], 60)                            
                             self.handle_expired_process(pobj)
 

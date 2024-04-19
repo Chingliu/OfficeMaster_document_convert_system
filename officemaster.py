@@ -246,9 +246,16 @@ class Convertor(object):
                 #标记任务开始时间
                 self.keep_alive(task_obj)
                 ret = self.engine.convert(task_obj["file_path"], task_obj["target_path"])
-                self.r.setnx("ConvertResult:" + task_obj["task_key"], ret)
+                #self.r.setnx("ConvertResult:" + task_obj["task_key"], ret)
+                #形成一个"ConvertResult:" + task_obj["task_key"] 的队列，此队列用于结果发送
+                #队列的key设置了60s自动删除
+                #任务消费者负责将结果rpush进去，
+                #任务生产者可以在此队列上blpop等待，等待的时长，可以是
+                #task_inqueue_timeout任务在队列中的超时时长加上task_timeout任务转换时长，默认180s
+                self.r.rpush("ConvertResult:" + task_obj["task_key"], str(ret))
                 self.r.expire("ConvertResult:" + task_obj["task_key"], 60)
-                self.printscreen("task:" + task_obj["task_key"] + " result :" + str(self.r.get("ConvertResult:" + task_obj["task_key"])))
+                #self.printscreen("task:" + task_obj["task_key"] + " result :" + str(self.r.get("ConvertResult:" + task_obj["task_key"])))
+                self.printscreen("task:"+ task_obj["file_path"]+ " result->:" + str(ret))
                 self.keep_alive()
             except Exception as e:
                 print("workloop",e)

@@ -11,6 +11,7 @@ def word2pdf():
     files = os.listdir(WORD_FILES)
     if not os.path.exists(PDF_FILES):
             os.makedirs(PDF_FILES)    
+    ongoing_tasks = []
     for file in files:
         file_path = os.path.join(WORD_FILES, file)
         source_type = "word"
@@ -38,7 +39,24 @@ def word2pdf():
              "target_type":"pdf"
         }
         print(task)
+        ongoing_tasks.append(task)
         conn.rpush("Convert:"+source_type, json.dumps(task))
+    while len(ongoing_tasks) > 0:
+        print(ongoing_tasks)
+        print("\r\n")
+        for task in ongoing_tasks[:]:
+            ret_list = conn.blpop("ConvertResult:" +task["task_key"], 2)
+            if not ret_list:
+                 continue
+            print("\r\n")
+            print(task["task_key"]+ ": result->:" + str(ret_list[1]))
+            conn.delete("ConvertResult:" +task["task_key"])
+            print("\r\n")
+            print("convert file saved at:"+ task["target_path"])
+            print("\r\n")
+            ongoing_tasks.remove(task)
+            
+         
     
     
 if __name__ == '__main__':
