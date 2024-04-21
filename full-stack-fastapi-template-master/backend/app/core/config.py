@@ -1,7 +1,7 @@
 import secrets
 import warnings
 from typing import Annotated, Any, Literal
-
+import pathlib
 from pydantic import (
     AnyUrl,
     BeforeValidator,
@@ -96,6 +96,7 @@ class Settings(BaseSettings):
     FIRST_SUPERUSER_PASSWORD: str = "tester"
     USERS_OPEN_REGISTRATION: bool = False
 
+    CONVERTED_FILE_STORE_PATH: pathlib.Path = "D:/tests/officemaster/"
     def _check_default_secret(self, var_name: str, value: str | None) -> None:
         if value == "changethis":
             message = (

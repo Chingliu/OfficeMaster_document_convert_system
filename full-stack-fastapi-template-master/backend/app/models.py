@@ -1,5 +1,5 @@
 from sqlmodel import Field, Relationship, SQLModel
-
+from enum import Enum
 
 # Shared properties
 # TODO replace email str with EmailStr when sqlmodel supports it
@@ -111,3 +111,7 @@ class TokenPayload(SQLModel):
 class NewPassword(SQLModel):
     token: str
     new_password: str
+
+class TargetFormat(str, Enum):
+    pdf = "pdf"
+    ofd = "ofd"
