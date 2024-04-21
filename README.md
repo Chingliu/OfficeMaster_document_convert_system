@@ -14,7 +14,12 @@
 4. pdf转txt ofd转txt  
 5. txt转pdf txt转ofd  
 6. pdf转docx ofd转docx  
-fastapi的http 接口还在开发中，所以目前仅使用命令的feed.py来测试  
+
+# 已支持的接口
+fastapi的http接口  
+CLI的feed.py  
+
+# 授权文件  
 授权文件放在另一个项目中： 
 https://github.com/Chingliu/XilouReader/tree/main/OfficeMaster_document_convert_system  
 https://gitee.com/chingliu/XilouReader/tree/main/OfficeMaster_document_convert_system  
