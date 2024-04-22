@@ -40,20 +40,18 @@ async def convert_file(current_user: CurrentUser, file: UploadFile = File(...), 
     if kind is not None:
         if kind.extension in ["doc", "docx"]:
             source_type = "word"
-        elif kind.extension in [".xls", ".xlsx"]:
+        elif kind.extension in ["xls", "xlsx"]:
             source_type = "excel"
         elif kind.extension in ["ppt", "pptx"]:
             source_type = "powerpoint"
-        elif kind.extension in ["pdf"]:
+        elif kind.extension in ["pdf", "ofd"]:
             source_type = "pdfofd"
     else:
         if original_filename.endswith((".doc", ".docx")):
             source_type = "word"
         elif original_filename.endswith((".xls", ".xlsx", ".et")):
             source_type = "excel"
-        elif original_filename.endswith(".pdf"):
-            source_type = "pdfofd"
-        elif original_filename.endswith(".ofd"):
+        elif original_filename.endswith((".pdf", ".ofd")):
             source_type = "pdfofd"
 
     # 创建任务
