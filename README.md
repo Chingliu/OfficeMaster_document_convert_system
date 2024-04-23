@@ -27,4 +27,13 @@ https://gitee.com/chingliu/XilouReader/tree/main/OfficeMaster_document_convert_s
 word/excel/ppt转pdf/ofd考虑到版面效果，需要依赖wps/office软件，需要wps/office有com接口支持  
 pdf/ofd互转 详见另一项目https://gitee.com/chingliu/XilouReader  
 
+# 用法
+1. 下载最新版本redis服务端,将redis 地址端口更新到config.json
+2. 将python程序绝对路径配置到config.json文件中
+3. 根据机器性能配置word,excel, ppt,hare进程的数量
+4. 现在默认使用的是wps所以需要安装wps专业版，只有wps专业版本才有com接口
+5. pdfmaster目录下的hare库用于pdf/ofd互转
+6. python manager.py启动转换后台服务， python 应该安装redis客户端 pip install redis
+7. python feed.py就可以将指定目录的文件送到转换服务去转换
+8. 如果需要使用HTTP接口，需要按full-stack-fastapi-template-master目录中fastapi的依赖来配置
 
