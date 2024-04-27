@@ -19,6 +19,10 @@
 fastapi的http接口  
 CLI的feed.py  
 
+# RoadMap
+2025/5 基于flet的登录界面
+2025/6-9 实现文档预览
+
 # 授权文件  
 授权文件放在另一个项目中： 
 https://github.com/Chingliu/XilouReader/tree/main/OfficeMaster_document_convert_system  
